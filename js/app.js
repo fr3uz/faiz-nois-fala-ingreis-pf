@@ -386,12 +386,24 @@ function showComplete() {
 
 // Teste de nivelamento
 function startPlacement() {
+    // Confirma se já fez teste antes
+    if (user.placementDone) {
+        if (!confirm('Você já fez o teste antes.Quer refazer? Todo o progresso será perdido.')) {
+            return;
+        }
+    }
+    
+    // Reseta tudo
+    user.placementDone = false;
+    saveUser();
+    
     document.getElementById('daily-lesson').style.display = 'none';
     document.getElementById('profile-section').style.display = 'none';
     document.getElementById('placement-section').style.display = 'block';
     
     placementIndex = 0;
     placementScore = 0;
+    currentQ = null;
     
     loadPlacementQ();
 }
@@ -406,10 +418,11 @@ function loadPlacementQ() {
     const opts = shuffle(raw.o);
     const correta = raw.o[raw.a];
     
+    // Armazena a resposta correta
     currentQ = { q: raw.q, opts: opts, resposta: correta };
     
     document.getElementById('placement-question').textContent = raw.q;
-    document.getElementById('placement-progress').textContent = `Questão: ${placementIndex + 1}/40`;
+    document.getElementById('placement-progress').textContent = 'Questão: ' + (placementIndex + 1) + '/40';
     document.getElementById('placement-result').textContent = '';
     
     const btns = document.querySelectorAll('#placement-options .option');
@@ -421,7 +434,10 @@ function loadPlacementQ() {
 }
 
 function checkPlacement(btn) {
-    if (!currentQ) return;
+    if (!currentQ) {
+        alert('Erro: nenhuma pergunta carregada. Clique em Iniciar.');
+        return;
+    }
     
     const btns = document.querySelectorAll('#placement-options .option');
     btns.forEach(b => b.disabled = true);
@@ -504,10 +520,14 @@ function showProfile() {
 }
 
 function resetAll() {
-    if (confirm('Resetar tudo?')) {
+    if (confirm('Tem certeza de que quer refazer? Todo o progresso será perdido.')) {
         localStorage.removeItem('eb_user');
         location.reload();
     }
+}
+
+function confirmReset() {
+    resetAll();
 }
 
 function perguntarEspecialista() {

@@ -32,44 +32,46 @@ body {
 }
 
 .app {
-    max-width: 480px;
+    max-width: 100%;
     margin: 0 auto;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    padding: 16px;
+    padding: 12px;
 }
 
 /* Header */
 .header {
-    background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg) 100%);
-    padding: 20px;
-    border-radius: 20px;
-    margin-bottom: 20px;
+    background: var(--bg-card);
+    padding: 16px;
+    border-radius: 16px;
+    margin-bottom: 16px;
     border: 1px solid var(--border);
     display: flex;
     align-items: center;
-    gap: 15px;
-    backdrop-filter: blur(10px);
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
 }
 
 .header img {
-    height: 35px;
+    height: 24px;
 }
 
 .stats {
     display: flex;
-    gap: 12px;
-    margin-left: auto;
+    gap: 8px;
+    margin-left: 0;
 }
 
 .stats span {
     background: var(--bg);
-    padding: 8px 14px;
-    border-radius: 12px;
-    font-size: 0.85rem;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 0.75rem;
     font-weight: 600;
     border: 1px solid var(--border);
+    white-space: nowrap;
 }
 
 .stats .xp { color: var(--primary); border-color: var(--primary); }
@@ -79,36 +81,35 @@ body {
 /* Sections */
 .lesson-card, .practice-hub, .profile-section, .placement-section, .simulado-section, .especialista-section {
     background: var(--bg-card);
-    border-radius: 24px;
-    padding: 24px;
-    margin-bottom: 16px;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 12px;
     border: 1px solid var(--border);
 }
 
 .lesson-card h2, .practice-hub h2, .profile-section h2 {
-    font-size: 1.3rem;
-    margin-bottom: 20px;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+    text-align: center;
 }
 
 /* Options */
 .options {
     display: grid;
-    gap: 12px;
+    gap: 10px;
+    margin-top: 16px;
 }
 
 .option {
     background: var(--bg);
     border: 2px solid var(--border);
-    padding: 16px 20px;
-    border-radius: 16px;
-    font-size: 1rem;
+    padding: 14px 16px;
+    border-radius: 12px;
+    font-size: 0.95rem;
     color: var(--text);
     cursor: pointer;
     transition: all 0.2s ease;
+    text-align: center;
 }
 
 .option:hover {
@@ -155,10 +156,10 @@ body {
 /* Navigation */
 .nav {
     display: flex;
-    gap: 8px;
-    padding: 12px;
+    gap: 6px;
+    padding: 8px;
     background: var(--bg-card);
-    border-radius: 20px;
+    border-radius: 16px;
     border: 1px solid var(--border);
     margin-top: auto;
 }
@@ -167,9 +168,9 @@ body {
     flex: 1;
     background: transparent;
     border: none;
-    padding: 16px 8px;
-    border-radius: 14px;
-    font-size: 1rem;
+    padding: 12px 4px;
+    border-radius: 12px;
+    font-size: 0.8rem;
     font-weight: 600;
     color: var(--text-muted);
     cursor: pointer;
@@ -178,6 +179,7 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 4px;
+    text-align: center;
 }
 
 .nav-btn.active {
