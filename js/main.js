@@ -1,5 +1,96 @@
 /* FNFIPF - JavaScript Simples e Funcional */
 
+// ===== SOM =====
+function som(tipo) {
+    try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        
+        // Resume context se necessário (para browsers que bloqueiam autoplay)
+        if (ctx.state === 'suspended') {
+            ctx.resume();
+        }
+        
+        if (tipo === 'acerto') {
+            osc.frequency.setValueAtTime(523, ctx.currentTime);
+            osc.frequency.setValueAtTime(659, ctx.currentTime + 0.1);
+            osc.frequency.setValueAtTime(784, ctx.currentTime + 0.2);
+            gain.gain.setValueAtTime(0.2, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.4);
+        } else {
+            osc.frequency.setValueAtTime(200, ctx.currentTime);
+            osc.frequency.setValueAtTime(150, ctx.currentTime + 0.2);
+            gain.gain.setValueAtTime(0.2, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.4);
+        }
+    } catch(e) {}
+}
+
+// Primeiro som executado precisa ativar o audio context
+let audioAtivado = false;
+function ativarAudio() {
+    if (!audioAtivado) {
+        audioAtivado = true;
+        som('teste'); // Som de teste só pra ativar
+    }
+}
+
+// ===== EXPLICAÇÕES DO PROFESSOR JAMES =====
+const explicacoes = {
+    is: "Use 'is' com he/she/it (ele/ela é/está)",
+    are: "Use 'are' com you/we/they (você/nós/eles são/estão)",
+    am: "Use 'am' com I (eu sou/estou)",
+    in: "In = em (lugar fechado/país)",
+    on: "On = em (superfície)",
+    at: "At = em (lugar específico)",
+    an: "An antes de vogal (a, e, i, o)",
+    a: "A antes de consoante",
+    What: "What = o que/qual",
+    Where: "Where = onde (lugar)",
+    goes: "Goes = 3ª pessoa de 'go' (ir)",
+    speaks: "Speaks = 3ª pessoa de 'speak' (falar)",
+    Do: "Do = auxiliar para perguntas",
+    Does: "Does = 3ª pessoa de 'do'",
+    drink: "Drink = beber (forma base)",
+    have: "Have = ter (posses)",
+    has: "Has = ele/ela tem",
+    went: "Went = passado de 'go' (ir)",
+    watched: "Watched = passado de 'watch' (assistir)",
+    studied: "Studied = passado de 'study' (estudar)",
+    was: "Was = passado de 'be' (he/she/it)",
+    were: "Were = passado plural de 'be'",
+    can: "Can = poder (habilidade presente)",
+    will: "Will = futuro (vai/fará)",
+    were: "Were = Condicional com 'if'"
+};
+
+function getExplicacao(resposta) {
+    for (const [key, valor] of Object.entries(explicacoes)) {
+        if (resposta.includes(key)) return valor;
+    }
+    return "Pratique esse padrão para fixar!";
+}
+
+function abrirExplicacao() {
+    if (!currentQ) return;
+    const exp = getExplicacao(currentQ.resposta);
+    document.getElementById('result').innerHTML = `
+        <div style="background:#252525; padding:12px; border-radius:10px; margin-top:12px; text-align:left;">
+            <p><strong>💬 Professor James explica:</strong></p>
+            <p style="margin-top:8px; color:var(--primary);">${exp}</p>
+            <button onclick="loadQuestion()" style="background:var(--primary); color:#000; border:none; padding:8px 16px; border-radius:8px; margin-top:12px; cursor:pointer;">Próxima →</button>
+        </div>
+    `;
+}
+
 // ===== DADOS =====
 const idiomas = {
     en: 'English',
@@ -173,12 +264,9 @@ function loadQuestion() {
         btn.textContent = opts[i];
         btn.classList.remove('correct', 'wrong');
         btn.disabled = false;
-    });
-    
+});
+     
     document.getElementById('result').textContent = '';
-    
-    // Carrega primeira questão
-    loadQuestion();
 }
 
 // ===== RESPONDER =====
@@ -191,22 +279,42 @@ function responder(btn) {
     if (btn.textContent === currentQ.resposta) {
         btn.classList.add('correct');
         user.xp += 10;
-        document.getElementById('result').innerHTML = '✅ Correto!';
+        som('acerto');
+        // Mensagem de acerto
+        const msgDiv = document.getElementById('result');
+        if (msgDiv) {
+            msgDiv.innerHTML = `
+                <div style="background:var(--primary); color:#000; padding:12px; border-radius:10px; margin-top:12px;">
+                    <strong>🎉 Você acertou!</strong>
+                </div>
+                <button onclick="loadQuestion()" style="background:#333; color:#fff; border:none; padding:10px 16px; border-radius:8px; margin-top:12px; cursor:pointer;">Próxima →</button>
+            `;
+        }
     } else {
         btn.classList.add('wrong');
         user.hearts--;
+        som('erro');
         btns.forEach(b => {
             if (b.textContent === currentQ.resposta) b.classList.add('correct');
         });
-        document.getElementById('result').innerHTML = '❌ ' + currentQ.resposta;
+        // Mensagem de erro + explicar
+        const msgDiv = document.getElementById('result');
+        if (msgDiv) {
+            const exp = getExplicacao(currentQ.resposta);
+            msgDiv.innerHTML = `
+                <div style="background:#ef4444; color:#fff; padding:12px; border-radius:10px; margin-top:12px; text-align:left;">
+                    <strong>❌ Você errou!</strong>
+                    <p style="margin-top:8px;">Resposta correta: <strong>${currentQ.resposta}</strong></p>
+                </div>
+                <button onclick="abrirExplicacao()" style="background:var(--secondary); color:#fff; border:none; padding:10px 16px; border-radius:8px; margin-top:12px; cursor:pointer;">💬 Entender</button>
+            `;
+        }
     }
     
     if (user.hearts <= 0) user.hearts = 5;
     
     saveUser();
     updateDisplay();
-    
-    setTimeout(loadQuestion, 1500);
 }
 
 // ===== TESTE DE NIVELAMENTO =====
