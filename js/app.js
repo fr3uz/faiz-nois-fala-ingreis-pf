@@ -248,25 +248,48 @@ function loadQuestion() {
         return;
     }
     
+    // Verifica se level existe
+    if (!user.currentLevel || user.currentLevel < 1) {
+        user.currentLevel = 1;
+    }
+    
     const list = lessons[user.currentLevel] || nivel1;
+    if (!list || list.length === 0) {
+        showNoTest();
+        return;
+    }
+    
     const raw = list[user.lessonIndex % list.length];
+    if (!raw) {
+        showNoTest();
+        return;
+    }
     
     const opts = shuffle(raw.o);
     const correta = raw.o[raw.a];
     
     currentQ = { q: raw.q, opts: opts, resposta: correta };
     
-    document.getElementById('lesson-prompt').innerHTML = `
-        <p>Nível: ${levels[user.currentLevel].name}</p>
-        <p style="margin-top:10px">${raw.q}</p>
-    `;
-    document.getElementById('lesson-result').textContent = '';
+    const divP = document.getElementById('lesson-prompt');
+    if (divP) {
+        divP.innerHTML = `
+            <p>Nível: ${levels[user.currentLevel] ? levels[user.currentLevel].name : 'Básico'}</p>
+            <p style="margin-top:10px">${raw.q}</p>
+        `;
+    }
+    
+    const resDiv = document.getElementById('lesson-result');
+    if (resDiv) resDiv.textContent = '';
+    
+    const optsDiv = document.getElementById('lesson-options');
+    if (optsDiv) optsDiv.style.display = 'grid';
     
     const btns = document.querySelectorAll('#lesson-options .option');
     btns.forEach((btn, i) => {
-        btn.textContent = opts[i];
+        btn.textContent = opts[i] || '?';
         btn.classList.remove('correct', 'wrong');
         btn.disabled = false;
+        btn.style.display = 'block';
     });
 }
 
