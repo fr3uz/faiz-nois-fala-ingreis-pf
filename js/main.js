@@ -97,6 +97,115 @@ const idiomas = {
     fr: 'Français'
 };
 
+const perguntas = {
+    basico: [
+        { q: "Hello, my name ___ John.", a: "is", o: ["is", "are", "am", "be"] },
+        { q: "How ___ you today?", a: "are", o: ["are", "is", "am", "be"] },
+        { q: "I ___ a student.", a: "am", o: ["am", "is", "are", "be"] },
+        { q: "She ___ from Brazil.", a: "is", o: ["is", "are", "am", "be"] },
+        { q: "They ___ students.", a: "are", o: ["are", "is", "am", "be"] },
+        { q: "We ___ friends.", a: "are", o: ["are", "is", "am", "be"] },
+        { q: "It ___ a book.", a: "is", o: ["is", "are", "am", "be"] },
+        { q: "You ___ my friend.", a: "are", o: ["are", "is", "am", "be"] },
+        { q: "He ___ a teacher.", a: "is", o: ["is", "are", "am", "be"] },
+        { q: "I live ___ Brazil.", a: "in", o: ["in", "on", "at", "to"] },
+        { q: "___ is your name?", a: "What", o: ["What", "Who", "Where", "How"] },
+        { q: "___ are you from?", a: "Where", o: ["Where", "What", "Who", "How"] },
+        { q: "I ___ 25 years old.", a: "am", o: ["am", "is", "are", "be"] },
+        { q: "She works ___ a bank.", a: "at", o: ["at", "in", "on", "to"] },
+        { q: "I need ___ apple.", a: "an", o: ["an", "a", "the", "some"] }
+    ],
+    intermediario: [
+        { q: "She ___ to the store every day.", a: "goes", o: ["goes", "go", "going", "gone"] },
+        { q: "He ___ English very well.", a: "speaks", o: ["speaks", "speak", "speaking", "spoke"] },
+        { q: "___ you speak English?", a: "Do", o: ["Do", "Does", "Is", "Are"] },
+        { q: "I usually ___ coffee.", a: "drink", o: ["drink", "drinks", "drinking", "drank"] },
+        { q: "The book ___ on the table.", a: "is", o: ["is", "are", "am", "be"] },
+        { q: "I ___ a car.", a: "have", o: ["have", "has", "had", "having"] },
+        { q: "She ___ two brothers.", a: "has", o: ["has", "have", "had", "having"] },
+        { q: "I ___ to the park yesterday.", a: "went", o: ["went", "go", "gone", "going"] },
+        { q: "She ___ the movie.", a: "watched", o: ["watched", "watch", "watching", "watches"] },
+        { q: "They ___ in the US.", a: "studied", o: ["studied", "study", "studying", "studies"] },
+        { q: "It ___ very cold.", a: "was", o: ["was", "is", "were", "been"] },
+        { q: "She ___ tired.", a: "was", o: ["was", "is", "were", "am"] },
+        { q: "You ___ speak well.", a: "can", o: ["can", "could", "will", "would"] },
+        { q: "I think she ___ come.", a: "will", o: ["will", "would", "can", "could"] },
+        { q: "I ___ to Brazil.", a: "went", o: ["went", "have been", "been", "was"] }
+    ],
+    avancado: [
+        { q: "If I ___ rich, I'd buy a house.", a: "were", o: ["were", "was", "am", "are"] },
+        { q: "If she ___ here, she'd help.", a: "were", o: ["were", "was", "is", "are"] },
+        { q: "I wish I ___ speak Spanish.", a: "could", o: ["could", "can", "will", "may"] },
+        { q: "She said that she ___ tired.", a: "was", o: ["was", "is", "were", "am"] },
+        { q: "The house ___ built.", a: "was", o: ["was", "is", "were", "are"] },
+        { q: "If I ___ harder, I'd pass.", a: "had studied", o: ["had studied", "studied", "study", "studies"] },
+        { q: "This time tomorrow, I ___ flying.", a: "will be flying", o: ["will be flying", "will fly", "am flying", "flying"] },
+        { q: "By next month, I ___ here.", a: "will have been", o: ["will have been", "will be", "am", "was"] },
+        { q: "It's essential that she ___ on time.", a: "arrives", o: ["arrives", "arrived", "arrive", "arriving"] },
+        { q: "I demand that he ___ the truth.", a: "tell", o: ["tell", "tells", "told", "telling"] },
+        { q: "You'd better ___ now.", a: "leave", o: ["leave", "to leave", "leaving", "left"] },
+        { q: "She ___ be the manager.", a: "might", o: ["might", "can", "must", "will"] },
+        { q: "I wish I ___ that.", a: "hadn't said", o: ["hadn't said", "didn't say", "don't say", "haven't said"] },
+        { q: "If only she ___ first.", a: "had known", o: ["had known", "knew", "know", "known"] },
+        { q: "She acts as if she ___ the owner.", a: "was", o: ["was", "is", "were", "are"] }
+    ]
+};
+
+// Perguntas em francês
+const perguntasFR = {
+    basico: [
+        { q: "Bonjour, je m'appelle ___.", a: "Jean", o: ["Jean", "Jea", "Jon", "Jan"] },
+        { q: "Comment ___ tu?", a: "vas", o: ["vas", "es", "est", "allez"] },
+        { q: "Je ___ étudiant.", a: "suis", o: ["suis", "es", "est", "êtes"] },
+        { q: "Elle ___ du Brésil.", a: "vient", o: ["vient", "venons", "venez", "venez"] },
+        { q: "Ils ___ étudiants.", a: "sont", o: ["sont", "es", "est", "êtes"] },
+        { q: "Nous ___ amis.", a: "sommes", o: ["sommes", "suis", "êtes", "sont"] },
+        { q: "C'est ___ livre.", a: "un", o: ["un", "une", "des", "les"] },
+        { q: "Vous ___ mon ami.", a: "êtes", o: ["êtes", "es", "est", "sommes"] },
+        { q: "Il ___ professeur.", a: "est", o: ["est", "es", "sommes", "êtes"] },
+        { q: "J'habite ___ France.", a: "en", o: ["en", "à", "dans", "sur"] },
+        { q: "___ est ton nom?", a: "Quel", o: ["Quel", "Qui", "Où", "Comment"] },
+        { q: "___ es-tu?", a: "D'où", o: ["D'où", "Quel", "Qui", "Comment"] },
+        { q: "J'ai ___ ans.", a: "vingt-cinq", o: ["vingt-cinq", "vint-cinq", "vinte-cinq", "vignt-cinq"] },
+        { q: "Il travaille ___ banque.", a: "à la", o: ["à la", "en", "dans", "sur"] },
+        { q: "J'ai ___ chat.", a: "un", o: ["un", "une", "des", "le"] }
+    ],
+    intermediario: [
+        { q: "Elle ___ au magasin chaque jour.", a: "va", o: ["va", "vas", "allait", "aller"] },
+        { q: "Il ___ très bien l'anglais.", a: "parle", o: ["parle", "parles", "parlé", "parler"] },
+        { q: "___ tu parles français?", a: "Parles", o: ["Parles", "Parle", "Parlons", "Parlent"] },
+        { q: "Je ___ habituellement du café.", a: "bois", o: ["bois", "boit", "bu", "boire"] },
+        { q: "Le livre ___ sur la table.", a: "est", o: ["est", "suis", "êtes", "sont"] },
+        { q: "J'ai ___ voiture.", a: "une", o: ["une", "un", "des", "les"] },
+        { q: "Elle ___ deux frères.", a: "a", o: ["a", "as", "ai", "avons"] },
+        { q: "Je ___ au parc hier.", a: "suis allé", o: ["suis allé", "ai allé", "suis allée", "étais allé"] },
+        { q: "Elle ___ le film.", a: "a regardé", o: ["a regardé", "regarde", "regardait", "regarder"] },
+        { q: "Ils ___ aux États-Unis.", a: "ont étudié", o: ["ont étudier", "étudient", "étudiaient", "étudiera"] },
+        { q: "Il ___ très froid.", a: "a fait", o: ["a fait", "fait", "faire", "fera"] },
+        { q: "Elle ___ fatiguée.", a: "était", o: ["était", "est", "été", "étant"] },
+        { q: "Tu ___ parler anglais.", a: "peux", o: ["peux", "pouvait", "pourras", "pourrait"] },
+        { q: "Je pense qu'elle ___ demain.", a: "viendra", o: ["viendra", "venir", "venait", "viendrait"] },
+        { q: "Si j'___ riche, j'achèterais une maison.", a: "étais", o: ["étais", "était", "es", "suis"] }
+    ],
+    avancado: [
+        { q: "Si elle ___ ici, elle nous aiderait.", a: "était", o: ["était", "soit", "est", "serait"] },
+        { q: "Il est temps qu'on ___ une décision.", a: "prenne", o: ["prenne", "prends", "prenant", "pris"] },
+        { q: "J'attends ___ de vous.", a: "de recevoir", o: ["de recevoir", "recevoir", "recevant", "reçu"] },
+        { q: "Elle a dit qu'elle ___ fatiguée.", a: "était", o: ["était", "est", "été", "étant"] },
+        { q: "La maison ___ l'année dernière.", a: "a été construite", o: ["a été construite", "été construite", "est construite", "construite"] },
+        { q: "Si j'___ plus, j'aurais réussi.", a: "avais étudié", o: ["avais étudié", "étudiais", "étudie", "étudiera"] },
+        { q: "À cette heure demain, je ___ à Londres.", a: "serai en train de voler", o: ["serai en train de voler", "volerai", "serai volé", "vole"] },
+        { q: "D'ici un mois, j'___ ici depuis un an.", a: "aurai été", o: ["aurai été", "serai", "étais", "fus"] },
+        { q: "Il est essentiel qu'elle ___ à l'heure.", a: "arrive", o: ["arrive", "arrived", "arriver", "arrivant"] },
+        { q: "Je demande qu'il ___ la vérité.", a: "dise", o: ["dise", "dit", "dire", "disant"] },
+        { q: "Tu ___ mieux partir maintenant.", a: "ferais mieux de", o: ["ferais mieux de", "mieux de partir", "mieux partir", "mieux parti"] },
+        { q: "Elle ___ être la directrice.", a: "pourrait", o: ["pourrait", "peut", "doit", "devrait"] },
+        { q: "Je wish je ___ pas dit ça.", a: "n'avais pas dit", o: ["n'avais pas dit", "n'ai pas dit", "ne dis pas", "ne dirai pas"] },
+        { q: "Si seulement elle ___ avant.", a: "avait su", o: ["avait su", "su", "savait", "saura"] },
+        { q: "Elle agit comme si elle ___ la propriétaire.", a: "était", o: ["était", "est", "été été", "soit"] }
+    ]
+};
+
 const avatares = ['😀', '😎', '🤓', '🥳', '😇', '🤔', '😸', '😺', '🦊', '🐱', '🦁', '🐼'];
 
 // Níveis baseados no progresso do teste
@@ -259,6 +368,20 @@ function trocarIdioma(lang) {
     currentLang = lang;
     saveLang();
     updateDisplay();
+    
+    // Recarrega perguntas no idioma correto
+    if (user.testFeito) {
+        loadQuestion();
+    }
+    
+    // Atualiza textos baseado no idioma
+    if (lang === 'fr') {
+        document.getElementById('lesson-title').textContent = 'Leçon du Jour';
+        document.getElementById('profile-title').textContent = 'Mon Profil';
+    } else {
+        document.getElementById('lesson-title').textContent = 'Lição do Dia';
+        document.getElementById('profile-title').textContent = 'Meu Perfil';
+    }
 }
 
 // ===== LIÇÃO DIÁRIA =====
@@ -269,12 +392,11 @@ function loadQuestion() {
         return;
     }
     
-    // Escolhe nível baseado no teste (não no XP)
-    // 0 = básico, 1 = intermediário, 2 = avançado, 3 = fluente
+// Escolhe nível baseado no teste (não no XP)
     const nivelKeys = ['basico', 'intermediario', 'avancado'];
     const nivelIndex = user.testeEtapa || 0;
     const nivel = nivelKeys[nivelIndex] || 'basico';
-    const lista = perguntas[nivel];
+    const lista = currentLang === 'fr' ? perguntasFR[nivel] : perguntas[nivel];
     
     // Escolhe pergunta aleatória
     const randomQ = Math.floor(Math.random() * lista.length);
@@ -356,7 +478,7 @@ function iniciarTeste() {
 
 function loadPerguntaTeste() {
     const etapa = etapas[user.testeEtapa];
-    const lista = perguntas[etapa];
+    const lista = currentLang === 'fr' ? perguntasFR[etapa] : perguntas[etapa];
     
     if (user.testeIndex >= lista.length) {
         // Verifica se passou
@@ -364,7 +486,7 @@ function loadPerguntaTeste() {
             if (user.testeEtapa < 2) {
                 // Passou - mostra transição
                 const nextEtapa = etapas[user.testeEtapa + 1];
-                document.getElementById('test-question').innerHTML = `<h3>🎉 Avanzou!</h3><p>Próxima: ${nextEtapa}</p>`;
+                document.getElementById('test-question').innerHTML = `<h3>🎉 Passou de Fase!</h3><p>Próxima: ${nextEtapa}</p>`;
                 document.getElementById('test-options').style.display = 'none';
                 document.getElementById('start-test-btn').style.display = 'none';
                 document.getElementById('next-test-btn').style.display = 'block';

@@ -60,12 +60,16 @@
             <!-- Teste de Nivelamento -->
             <section id="test" class="section" style="display:none;">
                 <h2>📋 Teste de Nivelamento</h2>
-                <p>Básico → Intermediário → Avançado</p>
+                <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:16px;">
+                    Responda 10 perguntas de inglês.<br>
+                    Para passar: tire pelo menos 7 acertos.<br>
+                    3 etapas: Básico → Intermediário → Avançado
+                </p>
                 <div class="progress-bar">
                     <div class="progress-fill" id="test-progress"></div>
                 </div>
-                <p id="test-question">Clique em Iniciar</p>
-                <div class="options" id="test-options">
+                <p id="test-question"></p>
+                <div class="options" id="test-options" style="display:none;">
                     <button onclick="responderTeste(this)">A</button>
                     <button onclick="responderTeste(this)">B</button>
                     <button onclick="responderTeste(this)">C</button>
