@@ -234,6 +234,12 @@ function updateDisplay() {
     document.getElementById('streak-count').textContent = user.streak;
     document.getElementById('hearts-count').textContent = user.hearts;
     document.getElementById('level').textContent = levels[user.currentLevel] ? levels[user.currentLevel].name : 'Nenhum';
+    
+    // XP bar (max 1000 XP por nível)
+    const xpMax = 1000;
+    const xpPercent = Math.min((user.xp % xpMax) / xpMax * 100, 100);
+    const xpBar = document.getElementById('xp-bar');
+    if (xpBar) xpBar.style.width = xpPercent + '%';
 }
 
 function loadQuestion() {
