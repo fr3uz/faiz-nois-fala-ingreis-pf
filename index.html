@@ -40,12 +40,18 @@
             <section id="home" class="section">
                 <h2>📅 <span id="lesson-title">Lição do Dia</span></h2>
                 <div id="lesson">
-                    <p id="question">Clique em Iniciar para começar</p>
-                    <div class="options" id="options">
-                        <button onclick="responder(this)">A</button>
-                        <button onclick="responder(this)">B</button>
-                        <button onclick="responder(this)">C</button>
-                        <button onclick="responder(this)">D</button>
+                    <div id="no-test-msg" style="display:none;">
+                        <p>⚠️ Você ainda não fez o teste de nivelamento.</p>
+                        <button class="btn" onclick="mostrar('test')">📋 Fazer Teste</button>
+                    </div>
+                    <div id="lesson-content" style="display:none;">
+                        <p id="question">Clique em Iniciar para começar</p>
+                        <div class="options" id="options">
+                            <button onclick="responder(this)">A</button>
+                            <button onclick="responder(this)">B</button>
+                            <button onclick="responder(this)">C</button>
+                            <button onclick="responder(this)">D</button>
+                        </div>
                     </div>
                 </div>
                 <p id="result"></p>
@@ -73,6 +79,18 @@
             <!-- Perfil -->
             <section id="profile" class="section" style="display:none;">
                 <h2>👤 <span id="profile-title">Meu Perfil</span></h2>
+                
+                <!-- Avatar -->
+                <div style="text-align:center; margin-bottom:16px;">
+                    <div id="avatar-display" style="font-size:3rem; cursor:pointer;" onclick="editarAvatar()">😀</div>
+                    <p style="font-size:0.8rem; color:var(--text-muted);">Clique no avatar para mudar</p>
+                </div>
+                
+                <!-- Nome -->
+                <div style="margin-bottom:16px;">
+                    <input type="text" id="nome-input" placeholder="Seu nome" style="width:100%; text-align:center; font-size:1.1rem; padding:12px;" onchange="salvarNome()">
+                </div>
+                
                 <div class="profile-info">
                     <div><span>XP:</span> <b id="profile-xp">0</b></div>
                     <div><span>Streak:</span> <b id="profile-streak">0</b> dias</div>

@@ -97,6 +97,16 @@ const idiomas = {
     fr: 'Français'
 };
 
+const avatares = ['😀', '😎', '🤓', '🥳', '😇', '🤔', '😸', '😺', '🦊', '🐱', '🦁', '🐼'];
+
+// Níveis baseados no progresso do teste
+const nivelMap = {
+    'basico': 'Básico',
+    'intermediario': 'Intermediário',
+    'avancado': 'Avançado',
+    'Fluente': 'Fluente'
+};
+
 const perguntas = {
     basico: [
         { q: "Hello, my name ___ John.", a: "is", o: ["is", "are", "am", "be"] },
@@ -156,6 +166,8 @@ const acertosNecessarios = 10;
 
 // ===== ESTADO =====
 let user = {
+    nome: '',
+    avatar: '😀',
     xp: 0,
     streak: 0,
     hearts: 5,
@@ -173,6 +185,21 @@ let currentQ = null;
 function init() {
     loadUser();
     updateDisplay();
+    
+    // Configura home baseado no teste
+    if (!user.testFeito) {
+        document.getElementById('no-test-msg').style.display = 'block';
+        document.getElementById('lesson-content').style.display = 'none';
+    } else {
+        document.getElementById('no-test-msg').style.display = 'none';
+        document.getElementById('lesson-content').style.display = 'block';
+        loadQuestion();
+    }
+    
+    // Configura avatar e nome no perfil
+    document.getElementById('avatar-display').textContent = user.avatar;
+    document.getElementById('nome-input').value = user.nome || '';
+    
     mostrar('home');
 }
 
@@ -242,9 +269,11 @@ function loadQuestion() {
         return;
     }
     
-    // Escolhe nível baseado no progresso
-    const nivelIndex = Math.floor(user.xp / 1000);
-    const nivel = nivelIndex >= 3 ? 'avancado' : nivelIndex >= 2 ? 'intermediario' : 'basico';
+    // Escolhe nível baseado no teste (não no XP)
+    // 0 = básico, 1 = intermediário, 2 = avançado, 3 = fluente
+    const nivelKeys = ['basico', 'intermediario', 'avancado'];
+    const nivelIndex = user.testeEtapa || 0;
+    const nivel = nivelKeys[nivelIndex] || 'basico';
     const lista = perguntas[nivel];
     
     // Escolhe pergunta aleatória
@@ -256,7 +285,7 @@ function loadQuestion() {
     
     currentQ = { resposta: p.a, nivel: nivel };
     
-    document.getElementById('question').innerHTML = `<p>${p.q}</p><small style="color:var(--primary)">${nivel.toUpperCase()}</small>`;
+    document.getElementById('question').innerHTML = `<p>${p.q}</p><small style="color:var(--primary)">${nivelMap[nivel] || nivel}</small>`;
     document.getElementById('options').style.display = 'grid';
     
     const btns = document.querySelectorAll('#options button');
@@ -409,6 +438,12 @@ function proximaEtapa() {
     user.testeIndex = 0;
     user.testeAcertos = 0;
     
+    // Atualiza o nível baseado em qual etapa passou
+    const nivelKeys = ['basico', 'intermediario', 'avancado'];
+    if (user.testeEtapa < 3) {
+        user.nivel = nivelMap[nivelKeys[user.testeEtapa]];
+    }
+    
     document.getElementById('next-test-btn').style.display = 'none';
     loadPerguntaTeste();
 }
@@ -416,6 +451,7 @@ function proximaEtapa() {
 function finalizouTeste() {
     user.testFeito = true;
     user.nivel = 'Fluente';
+    user.testeEtapa = 3; // Nível máximo
     saveUser();
     updateDisplay();
     
@@ -424,6 +460,10 @@ function finalizouTeste() {
     document.getElementById('test-progress').style.width = '100%';
     
     setTimeout(() => {
+        // Recarrega a página inicial com as perguntas do nível correto
+        document.getElementById('no-test-msg').style.display = 'none';
+        document.getElementById('lesson-content').style.display = 'block';
+        loadQuestion();
         mostrar('home');
     }, 2000);
 }
@@ -431,11 +471,36 @@ function finalizouTeste() {
 // ===== RESETAR =====
 function resetar() {
     if (confirm('Tem certeza? Todo progresso será perdido.')) {
-        user = { xp: 0, streak: 0, hearts: 5, nivel: '-', testFeito: false, testeEtapa: 0, testeAcertos: 0, testeIndex: 0 };
+        user = { nome: '', avatar: '😀', xp: 0, streak: 0, hearts: 5, nivel: '-', testFeito: false, testeEtapa: 0, testeAcertos: 0, testeIndex: 0 };
         saveUser();
         updateDisplay();
         location.reload();
     }
+}
+
+// ===== EDITAR AVATAR =====
+function editarAvatar() {
+    let msg = 'Escolha seu avatar:\n\n';
+    avatares.forEach((a, i) => {
+        msg += a + ' ';
+        if ((i + 1) % 4 === 0) msg += '\n';
+    });
+    
+    const escolha = prompt(msg + '\n\nDigite o número (0-' + (avatares.length - 1) + '):');
+    const idx = parseInt(escolha);
+    
+    if (idx >= 0 && idx < avatares.length) {
+        user.avatar = avatares[idx];
+        saveUser();
+        document.getElementById('avatar-display').textContent = user.avatar;
+    }
+}
+
+// ===== SALVAR NOME =====
+function salvarNome() {
+    const nome = document.getElementById('nome-input').value.trim();
+    user.nome = nome;
+    saveUser();
 }
 
 // ===== INICIA =====
