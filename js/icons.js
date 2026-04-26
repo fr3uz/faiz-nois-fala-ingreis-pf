@@ -1,4 +1,4 @@
-/* EnglishBoost - Ícone SVG */
+/* FNFIPF - Ícone SVG */
 export const iconSvg = `
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <rect width="512" height="512" rx="64" fill="#58CC02"/>

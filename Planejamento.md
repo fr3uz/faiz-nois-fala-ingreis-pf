@@ -1,4 +1,4 @@
-# EnglishBoost - Planejamento
+# FNFIPF - Planejamento
 
 ## Visão
 App estilo Duolingo para praticar inglês, integrado ao Cerebro.
@@ -41,7 +41,7 @@ App estilo Duolingo para praticar inglês, integrado ao Cerebro.
 
 ## Estrutura de Arquivos
 ```
-EnglishBoost/
+FNFIPF/
 ├── index.html
 ├── css/
 │   └── style.css

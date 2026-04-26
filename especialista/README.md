@@ -1,4 +1,4 @@
-# EnglishBoost - Especialista IA
+# FNFIPF - Especialista IA
 
 O Especialista é seu tutor pessoal de inglês estilo Duolingo.
 
