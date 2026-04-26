@@ -91,21 +91,34 @@ function som(tipo) {
     try {
         const ctx = new (window.AudioContext || window.webkitAudioContext)();
         const osc = ctx.createOscillator();
+        const osc2 = ctx.createOscillator();
         const gain = ctx.createGain();
+        const gain2 = ctx.createGain();
         osc.connect(gain);
+        osc2.connect(gain2);
         gain.connect(ctx.destination);
+        gain2.connect(ctx.destination);
         if (ctx.state === 'suspended') ctx.resume();
         if (tipo === 'acerto') {
+            osc.type = 'sine';
+            osc2.type = 'sine';
             osc.frequency.setValueAtTime(523, ctx.currentTime);
             osc.frequency.setValueAtTime(659, ctx.currentTime + 0.1);
             osc.frequency.setValueAtTime(784, ctx.currentTime + 0.2);
-            gain.gain.setValueAtTime(0.2, ctx.currentTime);
+            osc2.frequency.setValueAtTime(1047, ctx.currentTime + 0.25);
+            gain.gain.setValueAtTime(0.15, ctx.currentTime);
             gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+            gain2.gain.setValueAtTime(0.1, ctx.currentTime + 0.25);
+            gain2.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.6);
             osc.start();
+            osc2.start(ctx.currentTime + 0.25);
             osc.stop(ctx.currentTime + 0.4);
+            osc2.stop(ctx.currentTime + 0.6);
         } else {
-            osc.frequency.setValueAtTime(200, ctx.currentTime);
-            gain.gain.setValueAtTime(0.2, ctx.currentTime);
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(180, ctx.currentTime);
+            osc.frequency.linearRampToValueAtTime(100, ctx.currentTime + 0.3);
+            gain.gain.setValueAtTime(0.12, ctx.currentTime);
             gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
             osc.start();
             osc.stop(ctx.currentTime + 0.4);
@@ -229,9 +242,17 @@ function trocarIdioma(lang) {
     currentLang = lang;
     saveLang();
     updateDisplay();
+    const isFr = lang === 'fr';
     if (user.testFeito) loadQuestion();
-    document.getElementById('lesson-title').textContent = lang === 'fr' ? 'Leçon du Jour' : 'Lição do Dia';
-    document.getElementById('profile-title').textContent = lang === 'fr' ? 'Mon Profil' : 'Meu Perfil';
+    document.getElementById('lesson-title').textContent = isFr ? 'Leçon du Jour' : 'Lição do Dia';
+    document.getElementById('profile-title').textContent = isFr ? 'Mon Profil' : 'Meu Perfil';
+    document.getElementById('test-title').textContent = isFr ? 'Test de Positionnement' : 'Teste de Nivelamento';
+    document.getElementById('test-desc').innerHTML = isFr
+        ? 'Répondez à 10 questions.<br>Pour passer: au moins 7 bonnes réponses.<br>3 étapes: Basique → Intermédiaire → Avancé'
+        : 'Responda 10 perguntas.<br>Para passar: pelo menos 7 acertos.<br>3 etapas: Básico → Intermediário → Avançado';
+    if (document.getElementById('test').style.display !== 'none') {
+        loadPerguntaTeste();
+    }
 }
 
 // ===== PERFIL =====
@@ -379,9 +400,11 @@ function responderTeste(btn) {
     if (btn.textContent === currentQ.resposta) {
         btn.classList.add('correct');
         user.testeAcertos++;
+        som('acerto');
         document.getElementById('test-result').innerHTML = '✅ Correto!';
     } else {
         btn.classList.add('wrong');
+        som('erro');
         btns.forEach(b => { if (b.textContent === currentQ.resposta) b.classList.add('correct'); });
         document.getElementById('test-result').innerHTML = '❌ ' + currentQ.resposta;
     }
