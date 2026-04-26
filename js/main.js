@@ -321,7 +321,6 @@ function responder(btn) {
         }
     } else {
         btn.classList.add('wrong');
-        user.hearts--;
         som('erro');
         btns.forEach(b => {
             if (b.textContent === currentQ.resposta) b.classList.add('correct');
@@ -339,8 +338,8 @@ function responder(btn) {
             `;
         }
     }
-    
-    if (user.hearts <= 0) user.hearts = 5;
+}
+    }
     
     saveUser();
     updateDisplay();
@@ -378,11 +377,24 @@ function loadPerguntaTeste() {
                 finalizouTeste();
             }
         } else {
-            // Não passou
-            document.getElementById('test-question').innerHTML = `<h3>⚠️ Não passou</h3><p>Tente novamente</p>`;
+            // Não passou - define o nível atual e salva
+            const nivelKeys = ['basico', 'intermediario', 'avancado'];
+            user.testFeito = true;
+            user.nivel = nivelMap[nivelKeys[user.testeEtapa]] || 'Básico';
+            user.testeEtapa = user.testeEtapa; // Mantém o nível atual
+            saveUser();
+            
+            document.getElementById('test-question').innerHTML = `<h3>🏆 Teste Concluído!</h3><p style="font-size:1.2rem; margin:12px 0;">Seu nível de inglês é <strong style="color:var(--primary)">${user.nivel}</strong></p>`;
             document.getElementById('test-options').style.display = 'none';
-            document.getElementById('start-test-btn').style.display = 'block';
-            document.getElementById('start-test-btn').textContent = 'Tentar Novamente';
+            document.getElementById('test-progress').style.width = '100%';
+            
+            setTimeout(() => {
+                // Volta para home com perguntas do nível correto
+                document.getElementById('no-test-msg').style.display = 'none';
+                document.getElementById('lesson-content').style.display = 'block';
+                loadQuestion();
+                mostrar('home');
+            }, 2500);
         }
         return;
     }
