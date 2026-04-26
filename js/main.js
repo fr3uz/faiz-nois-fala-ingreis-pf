@@ -157,6 +157,14 @@ let currentQ = null;
 
 // ===== INIT =====
 function init() {
+    // Reset se dados estiverem corrompidos
+    try {
+        const saved = localStorage.getItem('fnfipf_user');
+        if (saved) JSON.parse(saved);
+    } catch(e) {
+        localStorage.removeItem('fnfipf_user');
+    }
+    
     loadUser();
     updateDisplay();
     if (!user.testFeito) {
@@ -169,7 +177,7 @@ function init() {
     }
     document.getElementById('avatar-display').textContent = user.avatar;
     document.getElementById('nome-input').value = user.nome || '';
-    mostrar('home');
+    document.getElementById('home').style.display = 'block';
 }
 
 // ===== STORAGE =====
@@ -209,7 +217,11 @@ function mostrar(id) {
     document.getElementById('profile').style.display = 'none';
     document.getElementById(id).style.display = 'block';
     document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-    event.target.closest('.nav-btn')?.classList.add('active');
+    // Atualiza botão ativo se existir event
+    if (typeof event !== 'undefined' && event.target) {
+        const btn = event.target.closest('.nav-btn');
+        if (btn) btn.classList.add('active');
+    }
 }
 
 // ===== IDIOMA =====
