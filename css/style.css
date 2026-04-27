@@ -83,9 +83,10 @@ button, input, select, textarea {
     box-shadow: var(--shadow-sm);
 }
 
-.header img {
+.header img, .header-logo {
     height: 32px;
-    object-fit: contain;
+    object-fit: cover;
+    border-radius: 4px;
 }
 
 .stats {
