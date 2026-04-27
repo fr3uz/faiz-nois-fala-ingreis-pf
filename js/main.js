@@ -449,19 +449,46 @@ function salvarNome() {
     
     // easter eggs
     if (nome === 'victor frois') {
-        user.avatar = '😈';
+        user.avatar = '😤';
         saveUser();
         document.getElementById('avatar-display').textContent = user.avatar;
-        document.getElementById('result').innerHTML = '<div style="background:var(--success-bg); color:var(--success); padding:12px; border-radius:10px; text-align:center;">😈 emo mode activated</div>';
+        som('acerto');
+        setTimeout(() => { alert('god mode 😤'); }, 300);
     }
     else if (nome === 'stezinha gameplays') {
         user.avatar = '💗';
         saveUser();
         document.getElementById('avatar-display').textContent = user.avatar;
         som('acerto');
-        setTimeout(() => {
-            alert('vc é linda 💗');
-        }, 300);
+        setTimeout(() => { alert('vc é linda 💗'); }, 300);
+    }
+    else if (nome === 'elias lima') {
+        user.avatar = '🤪';
+        saveUser();
+        document.getElementById('avatar-display').textContent = user.avatar;
+        som('acerto');
+        setTimeout(() => { alert('how to speak elias maluco in english? 🤪'); }, 300);
+    }
+    else if (nome === 'rodrygo') {
+        user.avatar = '🏳️‍🌈';
+        saveUser();
+        document.getElementById('avatar-display').textContent = user.avatar;
+        som('acerto');
+        setTimeout(() => { alert('sai fora viadinho 🏳️‍🌈'); }, 300);
+    }
+    else if (nome === 'ligeski') {
+        user.avatar = '🫏';
+        saveUser();
+        document.getElementById('avatar-display').textContent = user.avatar;
+        som('acerto');
+        setTimeout(() => { alert('tinha que ser o noobzão mesmo 🫏'); }, 300);
+    }
+    else if (nome === 'harney') {
+        user.avatar = '💉';
+        saveUser();
+        document.getElementById('avatar-display').textContent = user.avatar;
+        som('acerto');
+        setTimeout(() => { alert('lets make a full face harmonization? 💉'); }, 300);
     }
 }
 
